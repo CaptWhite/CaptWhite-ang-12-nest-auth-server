@@ -13,6 +13,7 @@ export class AuthController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
+    console.log(createUserDto)
     return this.authService.create(createUserDto);
   }
 
@@ -41,14 +42,11 @@ export class AuthController {
   @UseGuards( AuthGuard )
   @Get('check-token')
   checkToken( @Request() req: Request ): LoginResponse {
-      
     const user = req['user'] as User;
-
     return {
       user,
       token: this.authService.getJwtToken({ id: user._id })
     }
-
   }
 
   // @Get(':id')
